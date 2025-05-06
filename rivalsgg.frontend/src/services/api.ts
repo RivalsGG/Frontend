@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Define types based on your backend models
 export interface Player {
   playerId: number;
   playerName: string;
@@ -9,44 +8,88 @@ export interface Player {
   playerColor: string;
 }
 
-// Create axios instance with base URL
-const api = axios.create({
-  baseURL: 'https://localhost:7123/api',
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
+export interface MarvelHero {
+  id: string;
+  name: string;
+  imageUrl: string;
+  role: string;
+}
 
-// Player related API calls
+const LOCAL_API_URL = 'https://localhost:7123/api';
+const DOCKER_API_URL = 'http://localhost:8080/api';
+
 export const PlayerService = {
-  // Get all players
   getAllPlayers: async (): Promise<Player[]> => {
-    const response = await api.get<Player[]>('/Player');
-    return response.data;
+    try {
+      const response = await axios.get<Player[]>(`${LOCAL_API_URL}/Player`);
+      return response.data;
+    } catch (error) {
+      console.log('Local API not available, trying Docker environment...');
+      const response = await axios.get<Player[]>(`${DOCKER_API_URL}/Player`);
+      return response.data;
+    }
   },
   
-  // Get player by ID
   getPlayer: async (id: number): Promise<Player> => {
-    const response = await api.get<Player>(`/Players/${id}`);
-    return response.data;
+    try {
+      const response = await axios.get<Player>(`${LOCAL_API_URL}/Player/${id}`);
+      return response.data;
+    } catch (error) {
+      const response = await axios.get<Player>(`${DOCKER_API_URL}/Player/${id}`);
+      return response.data;
+    }
   },
   
-  // Create new player
   createPlayer: async (playerData: Omit<Player, 'playerId'>): Promise<Player> => {
-    const response = await api.post<Player>('/Players', playerData);
-    return response.data;
+    try {
+      const response = await axios.post<Player>(`${LOCAL_API_URL}/Player`, playerData);
+      return response.data;
+    } catch (error) {
+      const response = await axios.post<Player>(`${DOCKER_API_URL}/Player`, playerData);
+      return response.data;
+    }
   },
   
-  // Update player
   updatePlayer: async (id: number, playerData: Partial<Player>): Promise<Player> => {
-    const response = await api.put<Player>(`/Players/${id}`, playerData);
-    return response.data;
+    try {
+      const response = await axios.put<Player>(`${LOCAL_API_URL}/Player/${id}`, playerData);
+      return response.data;
+    } catch (error) {
+      const response = await axios.put<Player>(`${DOCKER_API_URL}/Player/${id}`, playerData);
+      return response.data;
+    }
   },
   
-  // Delete player
   deletePlayer: async (id: number): Promise<void> => {
-    await api.delete(`/Players/${id}`);
+    try {
+      await axios.delete(`${LOCAL_API_URL}/Player/${id}`);
+    } catch (error) {
+      await axios.delete(`${DOCKER_API_URL}/Player/${id}`);
+    }
   }
 };
 
-export default PlayerService;
+export const MarvelHeroService = {
+  getAllHeroes: async (): Promise<MarvelHero[]> => {
+    try {
+      const response = await axios.get<MarvelHero[]>(`${LOCAL_API_URL}/MarvelHeroes`);
+      return response.data;
+    } catch (error) {
+      console.log('Local API not available, trying Docker environment...');
+      const response = await axios.get<MarvelHero[]>(`${DOCKER_API_URL}/MarvelHeroes`);
+      return response.data;
+    }
+  },
+  
+  getHero: async (id: string): Promise<MarvelHero> => {
+    try {
+      const response = await axios.get<MarvelHero>(`${LOCAL_API_URL}/MarvelHeroes/${id}`);
+      return response.data;
+    } catch (error) {
+      const response = await axios.get<MarvelHero>(`${DOCKER_API_URL}/MarvelHeroes/${id}`);
+      return response.data;
+    }
+  }
+};
+
+export default { PlayerService, MarvelHeroService };

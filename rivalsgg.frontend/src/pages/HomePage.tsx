@@ -22,6 +22,12 @@ const HomePage: React.FC = () => {
       >
         View Players
       </button>
+      <button 
+              className="nav-button"
+              onClick={() => navigate('/heroes')}
+            >
+              Marvel Heroes
+            </button>
           </section>
         </main>
       </div>

@@ -1,17 +1,11 @@
-body, #root, .App {
-    background-image: url('../assets/images/Background.jpg');
-    display: block !important;
-    text-align: left !important;
-    align-items: flex-start !important;
-  }
-  
+
   .players-container {
     margin: 0 !important;
     margin-left: !important;
     max-width: 600px;
     margin: 0;
     margin-left: 20px;
-    padding: 20px;
+    padding: 0px 0px 0px 20px;
   }
 
   .players-container h1 {
