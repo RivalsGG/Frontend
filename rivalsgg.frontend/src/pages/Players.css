@@ -1,10 +1,7 @@
-
   .players-container {
     margin: 0 !important;
-    margin-left: !important;
+    margin-left: 0 !important;
     max-width: 600px;
-    margin: 0;
-    margin-left: 20px;
     padding: 0px 0px 0px 20px;
   }
 

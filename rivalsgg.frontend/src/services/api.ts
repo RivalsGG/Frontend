@@ -13,6 +13,19 @@ export interface MarvelHero {
   name: string;
   imageUrl: string;
   role: string;
+  real_Name?: string;
+  difficulty?: string;
+  bio?: string;
+  lore?: string;
+  team?: string[];
+  abilities?: MarvelHeroAbility[];
+}
+
+export interface MarvelHeroAbility {
+  name: string;
+  description: string;
+  icon: string;
+  type: string;
 }
 
 const LOCAL_API_URL = 'https://localhost:7123/api';
@@ -92,4 +105,110 @@ export const MarvelHeroService = {
   }
 };
 
-export default { PlayerService, MarvelHeroService };
+export const RivalsPlayerStatsService = {
+  getPlayerStats: async (uid: string): Promise<RivalsPlayerStats> => {
+    return apiRequest<RivalsPlayerStats>(`/RivalsPlayerStats/uid/${uid}`);
+  },
+  
+  getPlayerSummary: async (uid: string): Promise<PlayerSummary> => {
+    return apiRequest<PlayerSummary>(`/RivalsPlayerStats/summary/${uid}`);
+  },
+  
+  getPlayerName: async (uid: string): Promise<{ uid: string; username: string }> => {
+    return apiRequest<{ uid: string; username: string }>(`/RivalsPlayerStats/name/${uid}`);
+  },
+  
+  getPlayerUpdateInfo: async (uid: string): Promise<PlayerUpdateInfo> => {
+    return apiRequest<PlayerUpdateInfo>(`/RivalsPlayerStats/updates/${uid}`);
+  },
+  
+  requestPlayerUpdate: async (uid: string): Promise<PlayerUpdateResponse> => {
+    return apiRequest<PlayerUpdateResponse>(`/RivalsPlayerStats/update/${uid}`);
+  }
+};
+
+export const PlayerNameService = {
+  getPlayerNameByUid: async (uid: string): Promise<{ uid: string; username: string }> => {
+    return apiRequest<{ uid: string; username: string }>(`/PlayerName/uid/${uid}`);
+  }
+};
+
+export interface RivalsPlayerStats {
+  uid: number;
+  name: string;
+  username: string;
+  rank: string;
+  level: number;
+  matches: number;
+  wins: number;
+  losses: number;
+  winrate: number;
+  isPrivate: boolean;
+  player?: {
+    uid: number;
+    level: string;
+    name: string;
+    rank?: {
+      rank: string;
+      image?: string;
+      color?: string;
+    };
+    icon?: {
+      playerId: string;
+      iconUrl: string;
+    };
+  };
+  overallStats?: {
+    totalMatches: number;
+    totalWins: number;
+  };
+  updates?: {
+    infoUpdateTime: string;
+    lastHistoryUpdate?: string;
+    lastInsertedMatch?: string;
+    lastUpdateRequest?: string;
+  };
+}
+
+export interface PlayerSummary {
+  uid: string;
+  username: string;
+  level: number;
+  rank: string;
+  totalMatches: number;
+  totalWins: number;
+  totalLosses: number;
+  winrate: number;
+  avatar?: string;
+}
+
+export interface PlayerUpdateInfo {
+  uid: string;
+  username: string;
+  infoUpdateTime?: string;
+  lastHistoryUpdate?: string;
+  lastInsertedMatch?: string;
+  lastUpdateRequest?: string;
+}
+
+export interface PlayerUpdateResponse {
+  uid: string;
+  username: string;
+  success: boolean;
+  message: string;
+  lastUpdateRequest?: string;
+  warning?: string;
+}
+
+async function apiRequest<T>(endpoint: string, options?: any): Promise<T> {
+  try {
+    const response = await axios(`${LOCAL_API_URL}${endpoint}`, options);
+    return response.data;
+  } catch (error) {
+    console.log('Local API not available, trying Docker environment...');
+    const response = await axios(`${DOCKER_API_URL}${endpoint}`, options);
+    return response.data;
+  }
+}
+
+export default { PlayerService, MarvelHeroService, RivalsPlayerStatsService, PlayerNameService };

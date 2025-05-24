@@ -1,0 +1,342 @@
+.hero-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
+}
+
+.back-button {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+}
+
+.hero-header-section {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hero-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin: 0;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #fff, #f0f0f0);
+  -webkit-background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-real-name {
+  font-size: 1.2rem;
+  color: #f5efef;
+  margin: 0;
+  font-style: italic;
+}
+
+.hero-meta-info {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.role-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.role-icon {
+  font-size: 1.5rem;
+}
+
+.role-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.role-text.Vanguard {
+  color: #3e9f41;
+}
+
+.role-text.Duelist {
+  color: #ba281d;
+}
+
+.role-text.Strategist {
+  color: #1277c9;
+}
+
+.difficulty-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.difficulty-label {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+}
+
+.difficulty-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.star {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.3s;
+}
+
+.star.filled {
+  color: #FFD700;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.team-section {
+  margin-top: 10px;
+}
+
+.team-section h3 {
+  margin: 0 0 10px 0;
+  color: #f0f0f0;
+}
+
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.team-tag {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+}
+
+.bio-section {
+  margin-top: 20px;
+}
+
+.bio-section h3 {
+  margin: 0 0 10px 0;
+  color: #f0f0f0;
+}
+
+.bio-section p {
+  line-height: 1.6;
+  color: #ebe5e5;
+  margin: 0;
+}
+
+.lore-section {
+  margin-top: 20px;
+}
+
+.lore-section h3 {
+  margin: 0 0 10px 0;
+  color: #f0f0f0;
+}
+
+.lore-section p {
+  line-height: 1.6;
+  color: #ebe5e5;
+  margin: 0;
+}
+
+.hero-skills-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.skills-title {
+  font-size: 2rem;
+  margin: 0 0 30px 0;
+  text-align: center;
+  text-transform: uppercase;
+  background:  #f2efef;
+  background-clip: text;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.skill-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.skill-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.skill-info {
+  flex: 1;
+}
+
+.skill-name {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+  color: white;
+  font-weight: bold;
+}
+
+.skill-type {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.skill-description {
+  color: #d0d0d0;
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .hero-header-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero-image-wrapper {
+    height: 300px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-meta-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-details-container {
+    padding: 10px;
+  }
+
+  .hero-header-section {
+    padding: 20px;
+  }
+
+  .hero-skills-section {
+    padding: 20px;
+  }
+
+  .skill-card {
+    min-height: 180px;
+  }
+
+  .skill-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  margin: 100px auto;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.error {
+  color: #f44336;
+}

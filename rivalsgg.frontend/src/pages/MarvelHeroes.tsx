@@ -28,6 +28,9 @@ function MarvelHeroes() {
 
         fetchHeroes();
     }, []);
+    const handleHeroClick = (heroId: string) => {
+        navigate(`/heroes/${heroId}`);
+      };
 
     if (loading) return <div className="loading">Loading heroes...</div>;
     if (error) return <div className="error">Error: {error}</div>;
@@ -43,6 +46,7 @@ function MarvelHeroes() {
                     <div
                         key={hero.id}
                         className="hero-card"
+                        onClick={() => handleHeroClick(hero.id)}
                     >
                         <div className="hero-image-container">
                             <img

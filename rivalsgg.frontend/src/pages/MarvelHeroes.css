@@ -33,7 +33,7 @@
 .heroes-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+
     color: white;
   }
   
@@ -61,6 +61,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
   }
   
   .hero-card:hover {
@@ -78,10 +79,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
-  }
-  
-  .hero-card:hover .hero-image {
-    transform: scale(1.05);
   }
   
   .hero-details {
@@ -108,15 +105,15 @@
   }
   
   .role-badge.Vanguard {
-    background-color: #23a003; 
+    background-color: #3e9f41; 
   }
   
   .role-badge.Duelist {
-    background-color: #b20917; 
+    background-color: #ba281d; 
   }
   
   .role-badge.Strategist {
-    background-color: #0606d0;
+    background-color: #1277c9;
   }
   
   .loading, .error {
@@ -128,7 +125,6 @@
     border-radius: 10px;
     margin: 100px auto;
     max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
  
