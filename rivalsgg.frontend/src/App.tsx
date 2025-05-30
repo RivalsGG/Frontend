@@ -1,6 +1,7 @@
 import './App.css';
 import HomePage from './pages/HomePage';
 import PlayerList from './pages/Players';
+import PlayerForm from './pages/PlayerForm';
 import MarvelHeroes from './pages/MarvelHeroes';
 import HeroDetail from './pages/HeroDetail';
 import PlayerStats from './pages/PlayerStats';
@@ -17,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/players" element={<PlayerList />} />
+        <Route path="/players/new" element={<PlayerForm />} />
+        <Route path="/players/edit/:id" element={<PlayerForm />} />
         <Route path="/heroes" element={<MarvelHeroes />} />
         <Route path="/heroes/:id" element={<HeroDetail />} />
         <Route path="/playerstats/:uid" element={<PlayerStats />} />
