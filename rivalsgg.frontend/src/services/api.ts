@@ -1,4 +1,12 @@
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const checkAuth = () => {
+  const token = localStorage.getItem('auth_token');
+  if (!token) {
+    throw new Error('You must be logged in to perform this action');
+  }
+}
 
 export interface Player {
   playerId: number;

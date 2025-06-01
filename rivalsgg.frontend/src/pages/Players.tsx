@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlayerService, Player } from '../services/api';
 import './Players.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function PlayerList() {
+  const { isAuthenticated } = useAuth0();
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,6 +31,11 @@ function PlayerList() {
   };
 
   const handleDeletePlayer = async (playerId: number, playerName: string) => {
+    if (!isAuthenticated) {
+      alert('You must be logged in to delete players');
+      return;
+    }
+
     if (!window.confirm(`Are you sure you want to delete player "${playerName}"? This action cannot be undone.`)) {
       return;
     }
@@ -46,6 +53,10 @@ function PlayerList() {
   };
 
   const handleEditPlayer = (playerId: number) => {
+    if (!isAuthenticated) {
+      alert('You must be logged in to edit players');
+      return;
+    }
     navigate(`/players/edit/${playerId}`);
   };
 
@@ -56,23 +67,27 @@ function PlayerList() {
     <div className="players-container">
       <div className="players-header">
         <h1>Players</h1>
-        <button 
-          className="add-player-button"
-          onClick={() => navigate('/players/new')}
-        >
-          + Add New Player
-        </button>
+        {isAuthenticated && (
+          <button 
+            className="add-player-button"
+            onClick={() => navigate('/players/new')}
+          >
+            + Add New Player
+          </button>
+        )}
       </div>
       
       {players.length === 0 ? (
         <div className="no-players">
           <p>No players found. Create your first player!</p>
-          <button 
-            className="create-first-button"
-            onClick={() => navigate('/players/new')}
-          >
-            Create First Player
-          </button>
+          {isAuthenticated && (
+            <button 
+              className="create-first-button"
+              onClick={() => navigate('/players/new')}
+            >
+              Create First Player
+            </button>
+          )}
         </div>
       ) : (
         <div className="player-list">
@@ -92,25 +107,28 @@ function PlayerList() {
               />
               <div className="player-info">
                 <h3 className="player-name">{player.playerName}</h3>
-                
               </div>
               
               <div className="player-actions">
-                <button 
-                  className="edit-button"
-                  onClick={() => handleEditPlayer(player.playerId)}
-                  title="Edit Player"
-                >
-                  ✏️
-                </button>
-                <button 
-                  className="delete-button"
-                  onClick={() => handleDeletePlayer(player.playerId, player.playerName)}
-                  disabled={deletingId === player.playerId}
-                  title="Delete Player"
-                >
-                  {deletingId === player.playerId ? '⏳' : '🗑️'}
-                </button>
+                {isAuthenticated && (
+                  <>
+                    <button 
+                      className="edit-button"
+                      onClick={() => handleEditPlayer(player.playerId)}
+                      title="Edit Player"
+                    >
+                      ✏️
+                    </button>
+                    <button 
+                      className="delete-button"
+                      onClick={() => handleDeletePlayer(player.playerId, player.playerName)}
+                      disabled={deletingId === player.playerId}
+                      title="Delete Player"
+                    >
+                      {deletingId === player.playerId ? '⏳' : '🗑️'}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           ))}
