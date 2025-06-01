@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { PlayerNameService } from '../services/api';
+import { useAuth0 } from '@auth0/auth0-react';
+import Login from './Login';
+import Logout from './Logout';
 import './Header.css';
 
 type HeaderProps = {
@@ -18,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated, isLoading, user } = useAuth0();
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,6 +115,18 @@ const Header: React.FC<HeaderProps> = ({
             </form>
           </div>
         )}
+        {showNavigation && !isLoading && (
+  <div className="auth-section">
+    {isAuthenticated ? (
+      <div className="user-section">
+        <span>Hello, {user?.name}!</span>
+        <Logout />
+      </div>
+    ) : (
+      <Login />
+    )}
+  </div>
+)}
       </div>
     </header>
     
