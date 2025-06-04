@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PlayerService,  } from '../services/api';
 import './PlayerForm.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface PlayerFormData {
   playerName: string;
   playerIcon: string;
   playerColor: string;
 }
+ 
 
 const PlayerForm: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth0();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const isEdit = !!id;
@@ -120,8 +123,20 @@ const PlayerForm: React.FC = () => {
     }
   };
 
-  if (loading && isEdit) {
-    return <div className="loading">Loading player data...</div>;
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="auth-required">
+        <h2>Authentication Required</h2>
+        <p>You must be logged in to create or edit players.</p>
+        <button onClick={() => navigate('/players')}>
+          Back to Players
+        </button>
+      </div>
+    );
   }
 
   return (
